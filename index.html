@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Student Assignment Tracker</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="container">
+    <h1>Student Assignment Tracker</h1>
+
+    <form id="assignment-form">
+      <input type="text" id="title" placeholder="Assignment title" required />
+      <input type="text" id="module" placeholder="Module name" required />
+      <input type="date" id="due-date" required />
+      <button type="submit">Add Assignment</button>
+    </form>
+
+    <div class="filters">
+      <button type="button" onclick="setFilter('all')">All</button>
+      <button type="button" onclick="setFilter('pending')">Pending</button>
+      <button type="button" onclick="setFilter('completed')">Completed</button>
+    </div>
+
+    <ul id="assignment-list"></ul>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
