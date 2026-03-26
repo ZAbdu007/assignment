@@ -23,6 +23,11 @@ function renderAssignments() {
     filtered = assignments.filter(a => a.completed);
   }
 
+  if (filtered.length === 0) {
+    assignmentList.innerHTML = `<li><p>No assignments found.</p></li>`;
+    return;
+  }
+
   filtered.forEach(assignment => {
     const li = document.createElement("li");
     if (assignment.completed) li.classList.add("completed");
