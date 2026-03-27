@@ -46,3 +46,7 @@ li.completed h3 {
   width: auto;
   margin-right: 8px;
 }
+.overdue {
+  color: red;
+  font-weight: bold;
+}

@@ -12,6 +12,18 @@ function saveAssignments() {
   localStorage.setItem("assignments", JSON.stringify(assignments));
 }
 
+function isOverdue(dueDate, completed) {
+  if (completed) return false;
+
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+
+  const due = new Date(dueDate);
+  due.setHours(0, 0, 0, 0);
+
+  return due < today;
+}
+
 function renderAssignments() {
   assignmentList.innerHTML = "";
 
@@ -32,11 +44,16 @@ function renderAssignments() {
     const li = document.createElement("li");
     if (assignment.completed) li.classList.add("completed");
 
+    const overdueMessage = isOverdue(assignment.dueDate, assignment.completed)
+      ? `<p class="overdue"><strong>Overdue</strong></p>`
+      : "";
+
     li.innerHTML = `
       <h3>${assignment.title}</h3>
       <p><strong>Module:</strong> ${assignment.module}</p>
       <p><strong>Due:</strong> ${assignment.dueDate}</p>
       <p><strong>Status:</strong> ${assignment.completed ? "Completed" : "Pending"}</p>
+      ${overdueMessage}
       <div class="actions">
         <button onclick="toggleComplete(${assignment.id})">
           ${assignment.completed ? "Undo" : "Complete"}
@@ -57,7 +74,10 @@ form.addEventListener("submit", function (e) {
   const module = moduleInput.value.trim();
   const dueDate = dueDateInput.value;
 
-  if (!title || !module || !dueDate) return;
+  if (!title || !module || !dueDate) {
+    alert("Please fill in all fields.");
+    return;
+  }
 
   if (editingId) {
     assignments = assignments.map(a =>
@@ -82,6 +102,9 @@ form.addEventListener("submit", function (e) {
 });
 
 function deleteAssignment(id) {
+  const confirmDelete = confirm("Are you sure you want to delete this assignment?");
+  if (!confirmDelete) return;
+
   assignments = assignments.filter(a => a.id !== id);
   saveAssignments();
   renderAssignments();
