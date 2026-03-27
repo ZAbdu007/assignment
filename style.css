@@ -57,3 +57,10 @@ li.completed h3 {
   border-radius: 8px;
   margin-bottom: 15px;
 }
+
+.search-box {
+  background: white;
+  padding: 15px;
+  border-radius: 8px;
+  margin-bottom: 15px;
+}

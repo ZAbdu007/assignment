@@ -3,6 +3,7 @@ const titleInput = document.getElementById("title");
 const moduleInput = document.getElementById("module");
 const dueDateInput = document.getElementById("due-date");
 const assignmentList = document.getElementById("assignment-list");
+const searchInput = document.getElementById("search-input");
 
 const totalCount = document.getElementById("total-count");
 const completedCount = document.getElementById("completed-count");
@@ -43,6 +44,14 @@ function renderAssignments() {
     filtered = assignments.filter(a => !a.completed);
   } else if (currentFilter === "completed") {
     filtered = assignments.filter(a => a.completed);
+  }
+
+  const searchTerm = searchInput.value.trim().toLowerCase();
+  if (searchTerm) {
+    filtered = filtered.filter(a =>
+      a.title.toLowerCase().includes(searchTerm) ||
+      a.module.toLowerCase().includes(searchTerm)
+    );
   }
 
   if (filtered.length === 0) {
@@ -145,5 +154,7 @@ function setFilter(filter) {
   currentFilter = filter;
   renderAssignments();
 }
+
+searchInput.addEventListener("input", renderAssignments);
 
 renderAssignments();
