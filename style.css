@@ -50,3 +50,10 @@ li.completed h3 {
   color: red;
   font-weight: bold;
 }
+
+.stats {
+  background: white;
+  padding: 15px;
+  border-radius: 8px;
+  margin-bottom: 15px;
+}

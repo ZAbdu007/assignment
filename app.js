@@ -4,12 +4,22 @@ const moduleInput = document.getElementById("module");
 const dueDateInput = document.getElementById("due-date");
 const assignmentList = document.getElementById("assignment-list");
 
+const totalCount = document.getElementById("total-count");
+const completedCount = document.getElementById("completed-count");
+const pendingCount = document.getElementById("pending-count");
+
 let assignments = JSON.parse(localStorage.getItem("assignments")) || [];
 let currentFilter = "all";
 let editingId = null;
 
 function saveAssignments() {
   localStorage.setItem("assignments", JSON.stringify(assignments));
+}
+
+function updateStats() {
+  totalCount.textContent = assignments.length;
+  completedCount.textContent = assignments.filter(a => a.completed).length;
+  pendingCount.textContent = assignments.filter(a => !a.completed).length;
 }
 
 function isOverdue(dueDate, completed) {
@@ -37,6 +47,7 @@ function renderAssignments() {
 
   if (filtered.length === 0) {
     assignmentList.innerHTML = `<li><p>No assignments found.</p></li>`;
+    updateStats();
     return;
   }
 
@@ -65,6 +76,8 @@ function renderAssignments() {
 
     assignmentList.appendChild(li);
   });
+
+  updateStats();
 }
 
 form.addEventListener("submit", function (e) {
