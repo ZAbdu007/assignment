@@ -6,6 +6,7 @@ const emailInput = document.getElementById("email");
 const assignmentList = document.getElementById("assignment-list");
 const searchInput = document.getElementById("search-input");
 const sortSelect = document.getElementById("sort-select");
+const clearAllBtn = document.getElementById("clear-all-btn");
 
 const totalCount = document.getElementById("total-count");
 const completedCount = document.getElementById("completed-count");
@@ -186,6 +187,15 @@ function setFilter(filter) {
   currentFilter = filter;
   renderAssignments();
 }
+
+clearAllBtn.addEventListener("click", function () {
+  const confirmed = confirm("Are you sure you want to remove all assignments?");
+  if (!confirmed) return;
+
+  assignments = [];
+  saveAssignments();
+  renderAssignments();
+});
 
 searchInput.addEventListener("input", renderAssignments);
 sortSelect.addEventListener("change", renderAssignments);

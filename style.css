@@ -56,6 +56,15 @@ button:hover {
   background: #1d4ed8;
 }
 
+#clear-all-btn {
+  background: #dc2626;
+  margin-bottom: 15px;
+}
+
+#clear-all-btn:hover {
+  background: #b91c1c;
+}
+
 ul {
   list-style: none;
   padding: 0;
