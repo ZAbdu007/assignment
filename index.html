@@ -9,17 +9,15 @@
 <body>
   <div class="container">
     <h1>Student Assignment Tracker</h1>
+    <p class="subtitle">Track assignments, deadlines, and progress.</p>
 
     <form id="assignment-form">
       <input type="text" id="title" placeholder="Assignment title" required />
       <input type="text" id="module" placeholder="Module name" required />
       <input type="date" id="due-date" required />
+      <input type="email" id="email" placeholder="Student email" required />
       <button type="submit">Add Assignment</button>
     </form>
-
-    <div class="search-box">
-      <input type="text" id="search-input" placeholder="Search by title or module" />
-    </div>
 
     <div class="filters">
       <button type="button" onclick="setFilter('all')">All</button>
@@ -31,6 +29,10 @@
       <p><strong>Total:</strong> <span id="total-count">0</span></p>
       <p><strong>Completed:</strong> <span id="completed-count">0</span></p>
       <p><strong>Pending:</strong> <span id="pending-count">0</span></p>
+    </div>
+
+    <div class="search-box">
+      <input type="text" id="search-input" placeholder="Search by title or module" />
     </div>
 
     <ul id="assignment-list"></ul>

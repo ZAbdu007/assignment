@@ -2,6 +2,7 @@ const form = document.getElementById("assignment-form");
 const titleInput = document.getElementById("title");
 const moduleInput = document.getElementById("module");
 const dueDateInput = document.getElementById("due-date");
+const emailInput = document.getElementById("email");
 const assignmentList = document.getElementById("assignment-list");
 const searchInput = document.getElementById("search-input");
 
@@ -35,6 +36,21 @@ function isOverdue(dueDate, completed) {
   return due < today;
 }
 
+function isDueSoon(dueDate, completed) {
+  if (completed) return false;
+
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+
+  const due = new Date(dueDate);
+  due.setHours(0, 0, 0, 0);
+
+  const diffTime = due - today;
+  const diffDays = diffTime / (1000 * 60 * 60 * 24);
+
+  return diffDays >= 0 && diffDays <= 7;
+}
+
 function renderAssignments() {
   assignmentList.innerHTML = "";
 
@@ -64,6 +80,10 @@ function renderAssignments() {
     const li = document.createElement("li");
     if (assignment.completed) li.classList.add("completed");
 
+    const dueSoonMessage = isDueSoon(assignment.dueDate, assignment.completed)
+      ? `<p class="due-soon"><strong>Due within 7 days</strong></p>`
+      : "";
+
     const overdueMessage = isOverdue(assignment.dueDate, assignment.completed)
       ? `<p class="overdue"><strong>Overdue</strong></p>`
       : "";
@@ -72,7 +92,9 @@ function renderAssignments() {
       <h3>${assignment.title}</h3>
       <p><strong>Module:</strong> ${assignment.module}</p>
       <p><strong>Due:</strong> ${assignment.dueDate}</p>
+      <p><strong>Email:</strong> ${assignment.email}</p>
       <p><strong>Status:</strong> ${assignment.completed ? "Completed" : "Pending"}</p>
+      ${dueSoonMessage}
       ${overdueMessage}
       <div class="actions">
         <button onclick="toggleComplete(${assignment.id})">
@@ -95,8 +117,9 @@ form.addEventListener("submit", function (e) {
   const title = titleInput.value.trim();
   const module = moduleInput.value.trim();
   const dueDate = dueDateInput.value;
+  const email = emailInput.value.trim();
 
-  if (!title || !module || !dueDate) {
+  if (!title || !module || !dueDate || !email) {
     alert("Please fill in all fields.");
     return;
   }
@@ -104,7 +127,7 @@ form.addEventListener("submit", function (e) {
   if (editingId) {
     assignments = assignments.map(a =>
       a.id === editingId
-        ? { ...a, title, module, dueDate }
+        ? { ...a, title, module, dueDate, email }
         : a
     );
     editingId = null;
@@ -114,6 +137,7 @@ form.addEventListener("submit", function (e) {
       title,
       module,
       dueDate,
+      email,
       completed: false
     });
   }
@@ -147,6 +171,7 @@ function editAssignment(id) {
   titleInput.value = assignment.title;
   moduleInput.value = assignment.module;
   dueDateInput.value = assignment.dueDate;
+  emailInput.value = assignment.email;
   editingId = id;
 }
 
