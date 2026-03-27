@@ -19,6 +19,18 @@
       <button type="submit">Add Assignment</button>
     </form>
 
+    <div class="search-box">
+      <input type="text" id="search-input" placeholder="Search by title or module" />
+    </div>
+
+    <div class="sort-box">
+      <select id="sort-select">
+        <option value="default">Sort by</option>
+        <option value="due-asc">Due date: earliest first</option>
+        <option value="due-desc">Due date: latest first</option>
+      </select>
+    </div>
+
     <div class="filters">
       <button type="button" onclick="setFilter('all')">All</button>
       <button type="button" onclick="setFilter('pending')">Pending</button>
@@ -29,10 +41,6 @@
       <p><strong>Total:</strong> <span id="total-count">0</span></p>
       <p><strong>Completed:</strong> <span id="completed-count">0</span></p>
       <p><strong>Pending:</strong> <span id="pending-count">0</span></p>
-    </div>
-
-    <div class="search-box">
-      <input type="text" id="search-input" placeholder="Search by title or module" />
     </div>
 
     <ul id="assignment-list"></ul>

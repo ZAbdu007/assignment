@@ -5,6 +5,7 @@ const dueDateInput = document.getElementById("due-date");
 const emailInput = document.getElementById("email");
 const assignmentList = document.getElementById("assignment-list");
 const searchInput = document.getElementById("search-input");
+const sortSelect = document.getElementById("sort-select");
 
 const totalCount = document.getElementById("total-count");
 const completedCount = document.getElementById("completed-count");
@@ -68,6 +69,12 @@ function renderAssignments() {
       a.title.toLowerCase().includes(searchTerm) ||
       a.module.toLowerCase().includes(searchTerm)
     );
+  }
+
+  if (sortSelect.value === "due-asc") {
+    filtered.sort((a, b) => new Date(a.dueDate) - new Date(b.dueDate));
+  } else if (sortSelect.value === "due-desc") {
+    filtered.sort((a, b) => new Date(b.dueDate) - new Date(a.dueDate));
   }
 
   if (filtered.length === 0) {
@@ -181,5 +188,6 @@ function setFilter(filter) {
 }
 
 searchInput.addEventListener("input", renderAssignments);
+sortSelect.addEventListener("change", renderAssignments);
 
 renderAssignments();

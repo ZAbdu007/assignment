@@ -25,6 +25,7 @@ form,
 .filters,
 .stats,
 .search-box,
+.sort-box,
 li {
   background: white;
   padding: 15px;
@@ -34,7 +35,8 @@ li {
 }
 
 input,
-button {
+button,
+select {
   padding: 10px;
   margin: 5px 0;
   width: 100%;
